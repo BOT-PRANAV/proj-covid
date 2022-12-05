@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "ADF-proj-covid"
+		},
+		"ls_covid_interactive_cluster_accessToken": {
+			"value": ""
+		},
+		"ls_covidbs_connectionString": {
+			"value": ""
+		},
+		"ls_coviddl_accountKey": {
+			"value": ""
+		},
+		"ls_db_covid_cluster_accessToken": {
+			"value": ""
+		},
+		"ls_mysql_covid_db_connectionString": {
+			"value": ""
+		},
+		"testdatafactory1001_connectionString": {
+			"value": ""
+		},
+		"ls_covid_interactive_cluster_properties_typeProperties_existingClusterId": {
+			"value": "1018-141640-hn6u45f2"
+		},
+		"ls_coviddl_properties_typeProperties_url": {
+			"value": "https://c0vid19dl.dfs.core.windows.net/"
+		},
+		"ls_ecdc_http_properties_typeProperties_url": {
+			"value": "@{linkedService().baseURL}"
+		},
+		"tr_population_data_arrives_properties_typeProperties_scope": {
+			"value": "/subscriptions/c3aa1248-d722-4c3e-8f3b-a43bff90ed62/resourceGroups/proj_covid_rg/providers/Microsoft.Storage/storageAccounts/c0vid19sa"
+		}
+	}
+}

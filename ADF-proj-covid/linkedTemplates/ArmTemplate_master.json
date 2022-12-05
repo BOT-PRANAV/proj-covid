@@ -1,0 +1,132 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "ADF-proj-covid"
+		},
+		"ls_covid_interactive_cluster_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'ls_covid_interactive_cluster'"
+		},
+		"ls_covidbs_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_covidbs'"
+		},
+		"ls_coviddl_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_coviddl'"
+		},
+		"ls_db_covid_cluster_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'ls_db_covid_cluster'"
+		},
+		"ls_mysql_covid_db_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_mysql_covid_db'"
+		},
+		"testdatafactory1001_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'testdatafactory1001'"
+		},
+		"ls_covid_interactive_cluster_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "1018-141640-hn6u45f2"
+		},
+		"ls_coviddl_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://c0vid19dl.dfs.core.windows.net/"
+		},
+		"ls_ecdc_http_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "@{linkedService().baseURL}"
+		},
+		"tr_population_data_arrives_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/c3aa1248-d722-4c3e-8f3b-a43bff90ed62/resourceGroups/proj_covid_rg/providers/Microsoft.Storage/storageAccounts/c0vid19sa"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "ADF-proj-covid_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"ls_covid_interactive_cluster_accessToken": {
+						"value": "[parameters('ls_covid_interactive_cluster_accessToken')]"
+					},
+					"ls_covidbs_connectionString": {
+						"value": "[parameters('ls_covidbs_connectionString')]"
+					},
+					"ls_coviddl_accountKey": {
+						"value": "[parameters('ls_coviddl_accountKey')]"
+					},
+					"ls_db_covid_cluster_accessToken": {
+						"value": "[parameters('ls_db_covid_cluster_accessToken')]"
+					},
+					"ls_mysql_covid_db_connectionString": {
+						"value": "[parameters('ls_mysql_covid_db_connectionString')]"
+					},
+					"testdatafactory1001_connectionString": {
+						"value": "[parameters('testdatafactory1001_connectionString')]"
+					},
+					"ls_covid_interactive_cluster_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('ls_covid_interactive_cluster_properties_typeProperties_existingClusterId')]"
+					},
+					"ls_coviddl_properties_typeProperties_url": {
+						"value": "[parameters('ls_coviddl_properties_typeProperties_url')]"
+					},
+					"ls_ecdc_http_properties_typeProperties_url": {
+						"value": "[parameters('ls_ecdc_http_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "ADF-proj-covid_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"tr_population_data_arrives_properties_typeProperties_scope": {
+						"value": "[parameters('tr_population_data_arrives_properties_typeProperties_scope')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'ADF-proj-covid_ArmTemplate_0')]"
+			]
+		}
+	]
+}

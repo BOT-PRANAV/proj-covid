@@ -1,0 +1,9 @@
+{
+	"name": "datafactory-pranav",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "2a64ac18-635b-4a43-a04a-d3db7dfe28e8",
+		"tenantId": "705b750f-6fd9-4bf2-8f12-9104515e76a2"
+	}
+}
